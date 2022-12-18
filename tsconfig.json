@@ -1,0 +1,12 @@
+{
+	"compileOnSave": true,
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		"watch": true,
+		"strict": true,
+		"outDir": "dist",
+		"noImplicitReturns": true,
+		"moduleResolution": "NodeNext"
+	}
+}
