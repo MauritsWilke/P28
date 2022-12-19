@@ -2,6 +2,7 @@
 	"main": "dist/index.js",
 	"dependencies": {
 		"prismarine-chat": "^1.7.2",
-		"prismarine-proxy": "^1.1.4"
+		"prismarine-proxy": "^1.1.4",
+		"toml": "^3.0.0"
 	}
 }

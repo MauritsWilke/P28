@@ -1,0 +1,4 @@
+[proxy]
+host = "mc.hypixel.net"
+version = "1.8.9"
+port = 25565
