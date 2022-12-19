@@ -1,6 +1,6 @@
 import { parse } from "toml";
 import { readFileSync } from "fs";
-import type { Settings } from "../interfaces/settings";
+import type { Settings } from "../interfaces/settings.js";
 
 export function getSettings() {
 	try {

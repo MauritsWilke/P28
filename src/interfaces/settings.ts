@@ -4,4 +4,8 @@ export interface Settings {
 		version: string,
 		port: number,
 	}
+
+	settings: {
+		prefix: string
+	}
 }
