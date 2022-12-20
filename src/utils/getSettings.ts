@@ -1,6 +1,8 @@
 import { parse } from "toml";
-import { readFileSync } from "fs";
+import { readFileSync, copyFileSync } from "fs";
 import type { Settings } from "../interfaces/settings.js";
+import { Logger } from "./logger.js";
+const logger = new Logger();
 
 export function getSettings() {
 	try {
@@ -10,6 +12,10 @@ export function getSettings() {
 
 		return settings as Settings;
 	} catch (e) {
-		return null;
+		logger.warn("no settings file was found, creating a default one");
+
+		copyFileSync("./dist/utils/settingsTemplate.toml", "settings.toml");
+		const settings = parse(readFileSync("./settings.toml", "utf-8"));
+		return settings;
 	}
 }

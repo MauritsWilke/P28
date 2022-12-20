@@ -1,13 +1,10 @@
 import { getSettings } from "./utils/getSettings.js"
 import { P22 } from "./client.js";
 import { Logger } from "./utils/logger.js";
+import type { Settings } from "./interfaces/settings.js";
 const logger = new Logger();
 
-const settings = getSettings();
-if (!settings) {
-	logger.error("no settings found");
-	throw new Error("No settings found"); // LOG AND CREATE DEFAULT SETTINGS :)
-}
+const settings = getSettings() as Settings;
 const prefix = settings.settings.prefix;
 
 const client = new P22(settings);
