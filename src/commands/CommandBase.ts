@@ -1,12 +1,16 @@
 // @ts-ignore
 import type { PacketMeta, ServerClient, Client } from "prismarine-proxy"
 
+interface CommandSettings {
+	name: string,
+	description: string,
+	aliases: string[],
+	enabled: boolean
+}
+
 export class CommandBase {
 	constructor(
-		public name: string,
-		public description = "This command has no description (yet)",
-		public aliases: string[] = [],
-		public enabled = true,
+		public settings: CommandSettings
 	) { }
 }
 

@@ -48,10 +48,10 @@ export class P22 {
 			const { default: CommandBase } = await import(`./commands/${file}`);
 			const command = new CommandBase as Command;
 
-			logger.info(`adding command ${command.name}`);
-			this.commands.set(command.name, command);
+			logger.info(`adding command ${command.settings.name}`);
+			this.commands.set(command.settings.name, command);
 
-			for (const alias of command.aliases) {
+			for (const alias of command.settings.aliases) {
 				this.commands.set(alias, command);
 			}
 		}
