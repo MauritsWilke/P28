@@ -14,11 +14,11 @@ Hour 0 is everything I did before starting the timer.
 # Features I want to add:
 - [ ] Modules
   - [ ] Enabling/disabling 
-- [ ] Commands
-  - [ ] Enabling/disabling
-  - [ ] Description
-  - [ ] Name
-  - [ ] Aliases
+- [x] Commands
+  - [x] Enabling/disabling
+  - [x] Description
+  - [x] Name
+  - [x] Aliases
   - [ ] Cooldown?
 - [ ] Command ideas
   - [ ] /requeue (/rq)
@@ -54,7 +54,7 @@ Hour 0 is everything I did before starting the timer.
   - [ ] Highlight your IGN
 - [ ] Chest menu
   - [ ] Enabling / disabling things
-- [ ] .YAML for settings
+- [ ] .TOML for settings
   - [ ] Reset settings
   - [ ] Create settings template
     - [ ] Each module / command enabled
