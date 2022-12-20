@@ -58,7 +58,7 @@ Hour 0 is everything I did before starting the timer.
   - [ ] Reset settings
   - [ ] Create settings template
     - [ ] Each module / command enabled
-- [ ] logs
-  - [ ] log folder
-  - [ ] logs get written to a file
-  - [ ] logs have timestamps
+- [x] logs
+  - [x] log folder
+  - [x] logs get written to a file
+  - [x] logs have timestamps
