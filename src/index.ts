@@ -25,11 +25,12 @@ proxy.on("outgoing", (data, meta, toClient, toServer) => {
 		if (!possibleCommand.startsWith(prefix)) return;
 		const commandName = possibleCommand.slice(prefix.length);
 		const command = client.commands.get(commandName);
-		if (!command) return;
-		logger.info(`running command ${commandName}`);
-		command.execute(args, data, meta, toClient, toServer);
+		if (command) {
+			logger.info(`running command ${commandName}`);
+			command.execute(args, data, meta, toClient, toServer);
 
-		shouldSend = false;
+			shouldSend = false;
+		}
 	}
 
 	if (shouldSend) toServer.write(meta.name, data);
