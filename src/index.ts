@@ -1,9 +1,15 @@
-import { getSettings } from "./helpers/getSettings.js"
+import { getSettings } from "./utils/getSettings.js"
 import { P22 } from "./client.js";
+import { Logger } from "./utils/logger.js";
+const logger = new Logger();
+
+logger.debug("testing logger :)");
 
 const settings = getSettings();
 if (!settings) throw new Error("No settings found"); // LOG AND CREATE DEFAULT SETTINGS :)
-const prefix = settings.settings.prefix
+const prefix = settings.settings.prefix;
+
+logger.debug("testing logger :)");
 
 const client = new P22(settings);
 const proxy = await client.startProxy();
