@@ -1,6 +1,7 @@
 import { InstantConnectProxy } from "prismarine-proxy";
 import { readdirSync } from "fs";
-import { resolve } from "path";
+import { Logger } from "./utils/logger.js";
+const logger = new Logger();
 
 import type { Settings } from "./interfaces/settings.js"
 import type { Command } from "./commands/CommandBase.js";
@@ -11,6 +12,8 @@ export class P22 {
 	constructor(public settings: Settings) { }
 
 	startProxy = async () => {
+		logger.info("starting proxy");
+
 		const proxy = new InstantConnectProxy({
 			loginHandler: (client: any) => {
 				return {
@@ -30,8 +33,10 @@ export class P22 {
 			}
 		})
 
+		logger.info("loading commands");
 		await this.loadCommands();
 
+		logger.info(`proxy started using version ${this.settings.proxy.version}`);
 		return proxy;
 	}
 
@@ -43,6 +48,7 @@ export class P22 {
 			const { default: CommandBase } = await import(`./commands/${file}`);
 			const command = new CommandBase as Command;
 
+			logger.info(`adding command ${command.name}`);
 			this.commands.set(command.name, command);
 
 			for (const alias of command.aliases) {

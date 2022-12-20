@@ -1,33 +1,41 @@
 import { appendFileSync, readdirSync, mkdirSync, writeFileSync } from "fs";
 
-const getTimestamp = () => `[${new Date().toISOString().split("T")}]`;
+const getTimestamp = () => `[${new Date().toISOString().split("T").join(" ")}]`;
+const version = `0.0.2`;
+const logFile = getLogFile();
 
 export class Logger {
 	private debugChar = "[debug]";
 	private errorChar = "[error]";
 	private warnChar = "[warn]";
-
-	private logFile = getLogFile();
+	private infoChar = "[info]"
 
 	debug = (message: string) => {
 		const timestamp = getTimestamp();
 		const formatted = `${timestamp} ${this.debugChar} ${message}`;
 		console.log(formatted);
-		appendFileSync(this.logFile, `${formatted}\r\n`);
+		appendFileSync(logFile, `${formatted}\r\n`);
 	}
 
 	error = (message: string) => {
 		const timestamp = getTimestamp();
 		const formatted = `${timestamp} ${this.errorChar} ${message}`;
 		console.log(formatted);
-		appendFileSync(this.logFile, `${formatted}\r\n`);
+		appendFileSync(logFile, `${formatted}\r\n`);
 	}
 
 	warn = (message: string) => {
 		const timestamp = getTimestamp();
 		const formatted = `${timestamp} ${this.warnChar} ${message}`;
 		console.log(formatted);
-		appendFileSync(this.logFile, `${formatted}\r\n`);
+		appendFileSync(logFile, `${formatted}\r\n`);
+	}
+
+	info = (message: string) => {
+		const timestamp = getTimestamp();
+		const formatted = `${timestamp} ${this.infoChar} ${message}`;
+		console.log(formatted);
+		appendFileSync(logFile, `${formatted}\r\n`);
 	}
 }
 
@@ -40,7 +48,9 @@ function getLogFile() {
 
 	try {
 		const fileName = `./logs/${Date.now()}.p28`;
-		writeFileSync(fileName, `${getTimestamp()} [init] log initialised\r\n`);
+		const message = `${getTimestamp()} [init] log initialised, running v${version}`;
+		console.log(message);
+		writeFileSync(fileName, `${message}\r\n`);
 		return fileName;
 	} catch (e) {
 		console.log(e);

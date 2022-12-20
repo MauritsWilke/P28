@@ -3,13 +3,12 @@ import { P22 } from "./client.js";
 import { Logger } from "./utils/logger.js";
 const logger = new Logger();
 
-logger.debug("testing logger :)");
-
 const settings = getSettings();
-if (!settings) throw new Error("No settings found"); // LOG AND CREATE DEFAULT SETTINGS :)
+if (!settings) {
+	logger.error("no settings found");
+	throw new Error("No settings found"); // LOG AND CREATE DEFAULT SETTINGS :)
+}
 const prefix = settings.settings.prefix;
-
-logger.debug("testing logger :)");
 
 const client = new P22(settings);
 const proxy = await client.startProxy();
@@ -30,6 +29,7 @@ proxy.on("outgoing", (data, meta, toClient, toServer) => {
 		const commandName = possibleCommand.slice(prefix.length);
 		const command = client.commands.get(commandName);
 		if (!command) return;
+		logger.info(`running command ${commandName}`);
 		command?.execute(data, meta, toClient, toServer);
 
 		shouldSend = false;
