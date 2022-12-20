@@ -8,7 +8,7 @@ export default class extends CommandBase implements Command {
 		super("test", "test")
 	}
 
-	execute = (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
+	execute = (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
 		console.log("WORKING")
 	}
 }

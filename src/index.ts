@@ -30,7 +30,7 @@ proxy.on("outgoing", (data, meta, toClient, toServer) => {
 		const command = client.commands.get(commandName);
 		if (!command) return;
 		logger.info(`running command ${commandName}`);
-		command?.execute(data, meta, toClient, toServer);
+		command.execute(args, data, meta, toClient, toServer);
 
 		shouldSend = false;
 	}
