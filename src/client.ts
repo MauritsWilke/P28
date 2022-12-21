@@ -34,7 +34,7 @@ export class P22 {
 						version: config.proxy.version
 					}) as NewPingResult;
 
-					const description = `                    §kX§r §6P22 - v${version} §r§kX§r\n`;
+					const description = `                    §kX§r §6P28 - v${version} §r§kX§r\n`;
 					hypixel.description = hypixel.description.toString().replace(/.*\n/, description);
 
 					if (callback) callback(null, hypixel);
