@@ -10,9 +10,20 @@ const prefix = settings.settings.prefix;
 const client = new P22(settings);
 const proxy = await client.startProxy();
 
-proxy.on("incoming", (data, meta, toClient, toServer) => {
-	toClient.write(meta.name, data);
+proxy.on("incoming", async (data, meta, toClient, toServer) => {
+	let shouldSend = true;
+
+	// For some reason custom_payload just crashes the modules...
+	if (meta.name !== "custom_payload") {
+		const response = await client.parsePacket(data, meta, toClient, toServer, "incoming");
+		shouldSend = response.intercept;
+		[data, meta] = [response.data, response.meta];
+	}
+
+	if (shouldSend) toClient.write(meta.name, data);
 })
+
+
 
 proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 	let shouldSend = true;
@@ -33,6 +44,10 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 			}
 		}
 	}
+
+	const response = await client.parsePacket(data, meta, toClient, toServer, "incoming");
+	shouldSend = response.intercept;
+	[data, meta] = [response.data, response.meta];
 
 	if (shouldSend) toServer.write(meta.name, data);
 })
