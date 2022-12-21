@@ -14,8 +14,8 @@ Hour 0 is everything I did before starting the timer.
 
 
 # Features I want to add:
-- [ ] Modules
-  - [ ] Enabling/disabling 
+- [x] Modules
+  - [x] Enabling/disabling 
 - [x] Commands
   - [x] Enabling/disabling
   - [x] Description

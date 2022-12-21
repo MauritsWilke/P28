@@ -45,7 +45,7 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 		}
 	}
 
-	const response = await client.parsePacket(data, meta, toClient, toServer, "incoming");
+	const response = await client.parsePacket(data, meta, toClient, toServer, "outgoing");
 	shouldSend = response.intercept;
 	[data, meta] = [response.data, response.meta];
 
