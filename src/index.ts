@@ -14,7 +14,7 @@ proxy.on("incoming", (data, meta, toClient, toServer) => {
 	toClient.write(meta.name, data);
 })
 
-proxy.on("outgoing", (data, meta, toClient, toServer) => {
+proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 	let shouldSend = true;
 
 	if (meta.name === "chat") {
@@ -22,14 +22,15 @@ proxy.on("outgoing", (data, meta, toClient, toServer) => {
 		const possibleCommand = message[0];
 		const args = message.slice(1);
 
-		if (!possibleCommand.startsWith(prefix)) return;
-		const commandName = possibleCommand.slice(prefix.length);
-		const command = client.commands.get(commandName);
-		if (command) {
-			logger.info(`running command ${commandName}`);
-			command.execute(args, data, meta, toClient, toServer);
+		if (possibleCommand.startsWith(prefix)) {
+			const commandName = possibleCommand.slice(prefix.length);
+			const command = client.commands.get(commandName);
+			if (command?.settings.enabled) {
+				logger.info(`running command ${commandName}`);
+				await command.execute(args, data, meta, toClient, toServer);
 
-			shouldSend = false;
+				shouldSend = false;
+			}
 		}
 	}
 

@@ -15,5 +15,5 @@ export class CommandBase {
 }
 
 export interface Command extends CommandBase {
-	execute: (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => void
+	execute: (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => Promise<void>
 }

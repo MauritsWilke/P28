@@ -1,6 +1,6 @@
 import { InstantConnectProxy } from "prismarine-proxy";
 import { readdirSync } from "fs";
-import { Logger } from "./utils/logger.js";
+import { Logger, version } from "./utils/logger.js";
 const logger = new Logger();
 
 import type { Settings } from "./interfaces/settings.js"
@@ -24,7 +24,7 @@ export class P22 {
 			serverOptions: {
 				version: this.settings.proxy.version,
 				validateChannelProtocol: false,
-				motd: "P22 - v0.0.1",
+				motd: `P22 - v${version}`,
 				maxPlayers: 1,
 			},
 			clientOptions: {

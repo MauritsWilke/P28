@@ -1,7 +1,7 @@
 import { appendFileSync, readdirSync, mkdirSync, writeFileSync } from "fs";
 
-const getTimestamp = () => `[${new Date().toISOString().split("T").join(" ")}]`;
-const version = `0.0.2`;
+const getTimestamp = () => `[${new Date().toISOString().split("T").join(" ").replace("Z", "")}]`;
+export const version = `0.0.2`;
 const logFile = getLogFile();
 
 export class Logger {

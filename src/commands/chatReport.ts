@@ -7,29 +7,32 @@ import { CommandBase, Command } from "./CommandBase.js";
 import { Logger } from "../utils/logger.js";
 const logger = new Logger();
 
+import { sleep } from "../utils/utils.js";
+
 export default class extends CommandBase implements Command {
 	constructor() {
 		super({
-			name: "test",
-			description: "a testing command",
-			aliases: [],
+			name: "chatreport",
+			description: "A shortcut for chat reporting",
+			aliases: [
+				"cr",
+				"creport"
+			],
 			enabled: true
 		});
 	}
 
 	execute = async (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
-		logger.info(`test command was ran with these args: ${args}`);
+		for (const user of args) {
+			toServer.write("chat", {
+				message: `/creport ${user}`
+			});
 
-		const testMessage = new MessageBuilder()
-			.setText(`test command was ran with these args: ${args}`)
-			.toString();
+			await sleep(500); // Delay because Hypixel isn't instant :)
 
-		toClient.write("chat", {
-			message: testMessage
-		});
-
-		toServer.write("chat", {
-			message: "test"
-		})
+			toServer.write("chat", {
+				message: `/report confirm`
+			});
+		}
 	}
 }
