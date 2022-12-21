@@ -36,7 +36,9 @@ Hour 0 is everything I did before starting the timer.
 	  - [ ] ka -> kill_aura / bhop -> cheating
   - [ ] /nicks -> list nicks in lobby
     - [ ] Cache usernames!
+  - [x] Chat reporting shortcut
 - [ ] Module ideas
+  - [ ] Shout available again message
   - [ ] Disabling all particles
   - [ ] AutoGG
 	- [ ] Custom autoGG message
@@ -53,6 +55,9 @@ Hour 0 is everything I did before starting the timer.
 	- [ ] Block incoming toxicity
   - [ ] Nick warnings
   - [ ] Highlight your IGN
+  - [ ] Chat modifieres
+    - [ ] OwO speak
+	- [ ] ThIs AnnOyIng ThinG
 - [ ] Chest menu
   - [ ] Enabling / disabling things
 - [x] .TOML for settings

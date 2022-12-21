@@ -1,4 +1,7 @@
 import { InstantConnectProxy } from "prismarine-proxy";
+import mc_protocol from "minecraft-protocol";
+const { ping } = mc_protocol;
+type NewPingResult = mc_protocol.NewPingResult;
 import { readdirSync } from "fs";
 import { Logger, version } from "./utils/logger.js";
 const logger = new Logger();
@@ -12,6 +15,7 @@ export class P22 {
 	constructor(public settings: Settings) { }
 
 	startProxy = async () => {
+		const config = this.settings;
 		logger.info("starting proxy");
 
 		const proxy = new InstantConnectProxy({
@@ -22,10 +26,19 @@ export class P22 {
 				}
 			},
 			serverOptions: {
-				version: this.settings.proxy.version,
 				validateChannelProtocol: false,
-				motd: `P22 - v${version}`,
-				maxPlayers: 1,
+				port: this.settings.proxy.port,
+				async beforePing(response, client, callback) {
+					let hypixel = await ping({
+						host: config.proxy.host,
+						version: config.proxy.version
+					}) as NewPingResult;
+
+					const description = `                    §kX§r §6P22 - v${version} §r§kX§r\n`;
+					hypixel.description = hypixel.description.toString().replace(/.*\n/, description);
+
+					if (callback) callback(null, hypixel);
+				},
 			},
 			clientOptions: {
 				version: this.settings.proxy.version,
