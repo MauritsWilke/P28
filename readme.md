@@ -11,6 +11,7 @@ Hour 0 is everything I did before starting the timer.
 | 1 	| Managed to get a working proxy with a testing command.<br>It's quite difficult to come up with a good hierarchy of files when the clock is ticking.<br>Quite happy with how much I accomplished in one hour though, even if I had some knowledge about proxies beforehand. 	|
 | 2 	| Added a logging class with log files (quite happy with this).<br>Also updated the test command to include some more info for actual testing and fixed some bugs here and there. 	|
 | 3 	| Added a chat reporting shortcut. The localhost server now also shows the Hypixel MOTD and player counts.<br>Can't get ping to work though. As usual also some general bug fixes. 	|
+| 4 & 5 	| Spent a lot of time investigating packets and trying things.<br>Added modules :D. Made a test module and an ez bypass module (just had to). <br>Also spent a long time debugging modules and lost an easy 50 minutes on that :/ 	|
 
 
 # Features I want to add:
