@@ -11,6 +11,9 @@ ezBypass = true
 noChat = false
 wonkyText = false
 locraw = true
+mvpEmojis = true
+owoSpeak = true
+Shrug = true
 
 [commands]
 chatReport = true

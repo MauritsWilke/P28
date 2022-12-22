@@ -10,7 +10,9 @@ const prefix = settings.settings.prefix;
 const client = new P22(settings);
 const proxy = await client.startProxy();
 
+
 proxy.on("incoming", async (data, meta, toClient, toServer) => {
+	const start = process.hrtime.bigint();
 	let shouldSend = true;
 
 	// For some reason custom_payload just crashes the modules...
@@ -56,3 +58,15 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 
 	if (shouldSend) toServer.write(meta.name, data);
 })
+
+// TIME BENCHMARKING
+// const times: BigInt[] = [];
+// times.push(process.hrtime.bigint() - start);
+// process.on("SIGINT", () => {
+// 	const times2 = times.map(v => Number(v));
+// 	console.log(`Min: ${Math.min(...times2) / 1000000}ms`);
+// 	console.log(`Max: ${Math.max(...times2) / 1000000}ms`);
+// 	console.log(`Average: ${times2.reduce((a, b) => a + b, 0) / times2.length / 1000000}ms`);
+
+// 	process.exit();
+// })

@@ -33,8 +33,6 @@ export default class extends ModuleBase implements Module {
 
 			if (jsonText?.["mode"]) player.lastGame = jsonText["mode"];
 
-			console.log(player)
-
 			return { intercept: true, data: data, meta: meta }
 		}
 

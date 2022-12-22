@@ -35,7 +35,7 @@ export default class extends CommandBase implements Command {
 			toClient.write("chat", { message: successMessage });
 		} else if (args[0]?.match(/module/)) {
 			// @ts-ignore
-			const module = proxyClient.modules[args[1]] as Module;
+			const module = proxyClient.modules.filter(v => v.settings.name === args[1])[0] as Module;
 			if (!module) return;
 			module.settings.enabled = !module.settings.enabled;
 

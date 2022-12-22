@@ -13,6 +13,7 @@ Hour 0 is everything I did before starting the timer.
 | 3 	| Added a chat reporting shortcut. The localhost server now also shows the Hypixel MOTD and player counts.<br>Can't get ping to work though. As usual also some general bug fixes. 	|
 | 4 & 5 	| Spent a lot of time investigating packets and trying things.<br>Added modules :D. Made a test module and an ez bypass module (just had to). <br>Also spent a long time debugging modules and lost an easy 50 minutes on that :/ 	|
 | 6 & 7 	| Time is going fast! I managed to add a requeue command as well as a locraw player location tracker.<br>Also finally added a reload command so I don't have to relog the entire time and also a toggle command/module command<br>both of which also update the settings file! 	|
+| 8 	| Added a lot of chat modules as well as some benchmarking. Unsure if this was one hour because I forgot to time but i'll just count it as one. 	|
 
 
 # Features I want to add:
@@ -71,3 +72,5 @@ Hour 0 is everything I did before starting the timer.
   - [x] log folder
   - [x] logs get written to a file
   - [x] logs have timestamps
+- [ ] Command folders
+- [ ] Tab complete in commands
