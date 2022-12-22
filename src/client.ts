@@ -11,6 +11,7 @@ import type { PacketMeta, ServerClient, Client } from "prismarine-proxy";
 import type { Settings } from "./interfaces/settings.js"
 import type { Command } from "./commands/CommandBase.js";
 import type { Module, ModuleReturn } from "./modules/ModuleBase.js";
+import { updateSettings } from "./utils/updateSettings.js";
 
 export class P22 {
 	commands = new Map<string, Command>();
@@ -57,6 +58,9 @@ export class P22 {
 		logger.info("loading modules");
 		await this.loadModules();
 
+		logger.info("updating settings");
+		this.updateSettings();
+
 		logger.info(`proxy started using version ${this.settings.proxy.version}`);
 		return proxy;
 	}
@@ -69,7 +73,7 @@ export class P22 {
 			const { default: CommandBase } = await import(`./commands/${file}?update=${Date.now()}`);
 			const command = new CommandBase as Command;
 
-			command.settings.enabled = this.settings.commands[command.settings.name] ?? true;
+			command.settings.enabled = this.settings.commands?.[command.settings.name] ?? true;
 
 			logger.info(`adding command ${command.settings.name}`);
 			this.commands.set(command.settings.name, command);
@@ -94,7 +98,7 @@ export class P22 {
 			const { default: ModuleBase } = await import(`./modules/${file}?update=${Date.now()}`);
 			const module = new ModuleBase as Module;
 
-			module.settings.enabled = this.settings.modules[module.settings.name] ?? true;
+			module.settings.enabled = this.settings.modules?.[module.settings.name] ?? true;
 
 			logger.info(`adding module ${module.settings.name}`);
 			this.modules.push(module)
@@ -126,5 +130,16 @@ export class P22 {
 		}
 
 		return { intercept: shouldSend, data: data, meta: meta };
+	}
+
+	updateSettings = () => {
+		this.commands.forEach(command => {
+			this.settings.commands[command.settings.name] = command.settings.enabled;
+		})
+
+		this.modules.forEach(module => {
+			this.settings.modules[module.settings.name] = module.settings.enabled;
+		})
+		updateSettings(this.settings);
 	}
 }

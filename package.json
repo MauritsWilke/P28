@@ -2,8 +2,8 @@
 	"main": "dist/index.js",
 	"type": "module",
 	"dependencies": {
+		"@iarna/toml": "^2.2.5",
 		"prismarine-chat": "^1.7.2",
-		"prismarine-proxy": "^1.1.4",
-		"toml": "^3.0.0"
+		"prismarine-proxy": "^1.1.4"
 	}
 }

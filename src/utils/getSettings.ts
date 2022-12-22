@@ -1,4 +1,4 @@
-import { parse } from "toml";
+import { parse } from "@iarna/toml";
 import { readFileSync, copyFileSync } from "fs";
 import type { Settings } from "../interfaces/settings.js";
 import { Logger } from "./logger.js";
@@ -8,9 +8,7 @@ export function getSettings() {
 	try {
 		const settings = parse(readFileSync("./settings.toml", "utf-8"));
 
-		// validate settings?
-
-		return settings as Settings;
+		return settings as unknown as Settings;
 	} catch (e) {
 		logger.warn("no settings file was found, creating a default one");
 

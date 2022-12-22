@@ -45,5 +45,7 @@ export default class extends CommandBase implements Command {
 
 			toClient.write("chat", { message: successMessage });
 		}
+
+		proxyClient.updateSettings();
 	}
 }
