@@ -5,3 +5,13 @@ port = 25565
 
 [settings]
 prefix = "/"
+
+[modules]
+ezBypass = true
+noChat = false
+wonkyText = false
+
+[commands]
+chatReport = true
+reload = true
+test = true

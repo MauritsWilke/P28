@@ -8,4 +8,12 @@ export interface Settings {
 	settings: {
 		prefix: string
 	}
+
+	modules: {
+		[key: string]: boolean
+	}
+
+	commands: {
+		[key: string]: boolean
+	}
 }

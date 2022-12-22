@@ -8,7 +8,7 @@ const logger = new Logger();
 export default class extends ModuleBase implements Module {
 	constructor() {
 		super({
-			name: "Wonky text",
+			name: "wonkyText",
 			description: "MaKe yOUr ChaT LoOk LikE tHiS",
 			enabled: true
 		});

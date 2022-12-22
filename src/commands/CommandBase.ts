@@ -1,5 +1,6 @@
 // @ts-ignore
 import type { PacketMeta, ServerClient, Client } from "prismarine-proxy"
+import type { P22 } from "../client.js"
 
 interface CommandSettings {
 	name: string,
@@ -15,5 +16,5 @@ export class CommandBase {
 }
 
 export interface Command extends CommandBase {
-	execute: (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => Promise<void>
+	execute: (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client, proxyClient: P22) => Promise<void>
 }

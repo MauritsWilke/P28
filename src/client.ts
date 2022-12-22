@@ -69,6 +69,8 @@ export class P22 {
 			const { default: CommandBase } = await import(`./commands/${file}`);
 			const command = new CommandBase as Command;
 
+			command.settings.enabled = this.settings.commands[command.settings.name] ?? true;
+
 			logger.info(`adding command ${command.settings.name}`);
 			this.commands.set(command.settings.name, command);
 
@@ -78,6 +80,18 @@ export class P22 {
 		}
 	}
 
+	reloadCommands = async () => {
+		logger.info("reloading commands");
+		this.commands.clear();
+		await this.loadCommands();
+	}
+
+	reloadModules = async () => {
+		logger.info("reloading modules");
+		this.modules = [];
+		await this.loadModules();
+	}
+
 	loadModules = async () => {
 		const moduleFiles = readdirSync("./dist/modules");
 
@@ -85,6 +99,8 @@ export class P22 {
 			if (file === "ModuleBase.js") continue;
 			const { default: ModuleBase } = await import(`./modules/${file}`);
 			const module = new ModuleBase as Module;
+
+			module.settings.enabled = this.settings.modules[module.settings.name] ?? true;
 
 			logger.info(`adding module ${module.settings.name}`);
 			this.modules.push(module)

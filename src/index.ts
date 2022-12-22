@@ -37,7 +37,7 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 			if (command?.settings.enabled) {
 				try {
 					logger.info(`running command ${commandName}`);
-					await command.execute(args, data, meta, toClient, toServer);
+					await command.execute(args, data, meta, toClient, toServer, client);
 
 				} catch (e) {
 					const msg = `{"text":"Something went wrong running ${commandName}, please check the logs."}`;
