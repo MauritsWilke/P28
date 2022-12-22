@@ -66,7 +66,7 @@ export class P22 {
 
 		for (const file of commandFiles) {
 			if (file === "CommandBase.js") continue;
-			const { default: CommandBase } = await import(`./commands/${file}`);
+			const { default: CommandBase } = await import(`./commands/${file}?update=${Date.now()}`);
 			const command = new CommandBase as Command;
 
 			command.settings.enabled = this.settings.commands[command.settings.name] ?? true;
@@ -86,18 +86,12 @@ export class P22 {
 		await this.loadCommands();
 	}
 
-	reloadModules = async () => {
-		logger.info("reloading modules");
-		this.modules = [];
-		await this.loadModules();
-	}
-
 	loadModules = async () => {
 		const moduleFiles = readdirSync("./dist/modules");
 
 		for (const file of moduleFiles) {
 			if (file === "ModuleBase.js") continue;
-			const { default: ModuleBase } = await import(`./modules/${file}`);
+			const { default: ModuleBase } = await import(`./modules/${file}?update=${Date.now()}`);
 			const module = new ModuleBase as Module;
 
 			module.settings.enabled = this.settings.modules[module.settings.name] ?? true;
@@ -105,6 +99,12 @@ export class P22 {
 			logger.info(`adding module ${module.settings.name}`);
 			this.modules.push(module)
 		}
+	}
+
+	reloadModules = async () => {
+		logger.info("reloading modules");
+		this.modules = [];
+		await this.loadModules();
 	}
 
 	parsePacket = async (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client, type: "incoming" | "outgoing"): Promise<ModuleReturn> => {

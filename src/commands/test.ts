@@ -19,6 +19,7 @@ export default class extends CommandBase implements Command {
 
 	execute = async (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
 		logger.info(`test command was ran with these args: ${args}`);
+		logger.info(`test command v4`);
 
 		const testMessage = new MessageBuilder()
 			.setText(`test command was ran with these args: ${args}`)

@@ -21,11 +21,17 @@ export default class extends CommandBase implements Command {
 	}
 
 	execute = async (args: string[], data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client, proxyClient: P22) => {
-		if (args[0].match(/module/)) await proxyClient.reloadModules();
-		else if (args[0].match(/command/)) await proxyClient.reloadCommands();
+		if (args[0]?.match(/module/)) await proxyClient.reloadModules();
+		else if (args[0]?.match(/command/)) await proxyClient.reloadCommands();
 		else {
 			await proxyClient.reloadCommands();
 			await proxyClient.reloadModules();
 		}
+
+		const successMessage = new MessageBuilder()
+			.setText(`Succesfully reloaded ${args[0]?.match(/module/) ? "modules" : args[0]?.match(/command/) ? "commands" : "everything"}`)
+			.toString();
+
+		toClient.write("chat", { message: successMessage });
 	}
 }
