@@ -1,9 +1,9 @@
 // @ts-ignore - Technically not allowed to import those but who cares :)
 import type { PacketMeta, ServerClient, Client } from "prismarine-proxy";
 
-import { ModuleBase, Module } from "./ModuleBase.js";
-import { Logger } from "../utils/logger.js";
-import type { P22 } from "../client.js";
+import { ModuleBase, Module } from "../ModuleBase.js";
+import { Logger } from "../../utils/logger.js";
+import type { P22 } from "../../client.js";
 const logger = new Logger();
 
 const allowedCommands = [

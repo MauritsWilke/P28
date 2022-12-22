@@ -1,16 +1,15 @@
 // @ts-ignore - Technically not allowed to import those but who cares :)
 import type { PacketMeta, ServerClient, Client } from "prismarine-proxy";
 
-import { ModuleBase, Module } from "./ModuleBase.js";
-import { Logger } from "../utils/logger.js";
-import type { P22 } from "../client.js";
+import { ModuleBase, Module } from "../ModuleBase.js";
+import { Logger } from "../../utils/logger.js";
 const logger = new Logger();
 
 export default class extends ModuleBase implements Module {
 	constructor() {
 		super({
-			name: "Shrug",
-			description: "¯\\_(ツ)_/¯",
+			name: "ezBypass",
+			description: "Bypass the ez block with special characters",
 			enabled: true
 		});
 	}
@@ -19,11 +18,10 @@ export default class extends ModuleBase implements Module {
 		return { intercept: false, data: data, meta: meta };
 	}
 
-	parseOutgoing = async (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client, proxyClient: P22) => {
+	parseOutgoing = async (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
 		if (meta.name === "chat") {
-			if (data.message === "/shrug") data.message = "¯\\_(ツ)_/¯";
-			data.message = data.message.replaceAll(":shrug:", "¯\\_(ツ)_/¯");
-			return { intercept: false, data: data, meta: meta };
+			data.message = data.message.replaceAll(/(\s|^)ez(\s|$)/g, " ｅｚ ");
+			return { intercept: false, data: data, meta: meta }
 		}
 
 		return { intercept: false, data: data, meta: meta };

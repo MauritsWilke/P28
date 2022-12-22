@@ -70,11 +70,9 @@ export class P22 {
 	}
 
 	loadCommands = async () => {
-		const commandFiles = readdirSync("./dist/commands");
+		const commandFiles = await importRecursively("./dist/commands");
 
-		for (const file of commandFiles) {
-			if (file === "CommandBase.js") continue;
-			const { default: CommandBase } = await import(`./commands/${file}?update=${Date.now()}`);
+		for (const CommandBase of commandFiles) {
 			const command = new CommandBase as Command;
 
 			command.settings.enabled = this.settings.commands?.[command.settings.name] ?? true;
@@ -95,17 +93,15 @@ export class P22 {
 	}
 
 	loadModules = async () => {
-		const moduleFiles = readdirSync("./dist/modules");
+		const moduleFiles = await importRecursively("./dist/modules");
 
-		for (const file of moduleFiles) {
-			if (file === "ModuleBase.js") continue;
-			const { default: ModuleBase } = await import(`./modules/${file}?update=${Date.now()}`);
+		for (const ModuleBase of moduleFiles) {
 			const module = new ModuleBase as Module;
 
 			module.settings.enabled = this.settings.modules?.[module.settings.name] ?? true;
 
 			logger.info(`adding module ${module.settings.name}`);
-			this.modules.push(module)
+			this.modules.push(module);
 		}
 	}
 
@@ -146,4 +142,21 @@ export class P22 {
 		})
 		updateSettings(this.settings);
 	}
+}
+
+async function importRecursively(path: string, imports: Array<any> = []) {
+	const files = readdirSync(path, { withFileTypes: true });
+
+	for (const file of files) {
+		if (file.isDirectory()) {
+			const res = await importRecursively(`${path}/${file.name}`);
+			imports.push(...res);
+		} else {
+			if (file.name.match("Base")) continue;
+			const { default: defaultExport } = await import(`${path.replace("/dist", "")}/${file.name}?update=${Date.now()}`);
+			imports.push(defaultExport as Module)
+		}
+	}
+
+	return imports;
 }
