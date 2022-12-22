@@ -10,6 +10,7 @@ prefix = "/"
 ezBypass = true
 noChat = false
 wonkyText = false
+locraw = true
 
 [commands]
 chatReport = true
@@ -17,3 +18,4 @@ reload = true
 test = false
 chatreport = true
 toggle = true
+requeue = true

@@ -12,10 +12,12 @@ import type { Settings } from "./interfaces/settings.js"
 import type { Command } from "./commands/CommandBase.js";
 import type { Module, ModuleReturn } from "./modules/ModuleBase.js";
 import { updateSettings } from "./utils/updateSettings.js";
+import { EmptyPlayer, Player } from "./interfaces/player.js";
 
 export class P22 {
 	commands = new Map<string, Command>();
 	modules: Module[] = [];
+	player: Player = EmptyPlayer;
 
 	constructor(public settings: Settings) { }
 
@@ -25,6 +27,8 @@ export class P22 {
 
 		const proxy = new InstantConnectProxy({
 			loginHandler: (client: any) => {
+				this.player.username = client.username;
+
 				return {
 					username: client.username,
 					auth: "microsoft"
@@ -117,8 +121,8 @@ export class P22 {
 			if (!module.settings.enabled) continue;
 			try {
 				let response;
-				if (type === "incoming") response = await module.parseIncoming(data, meta, toClient, toServer);
-				else response = await module.parseOutgoing(data, meta, toClient, toServer);
+				if (type === "incoming") response = await module.parseIncoming(data, meta, toClient, toServer, this, this.player);
+				else response = await module.parseOutgoing(data, meta, toClient, toServer, this, this.player);
 
 				[data, meta] = [response.data, response.meta];
 

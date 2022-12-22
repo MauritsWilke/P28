@@ -65,7 +65,7 @@ Hour 0 is everything I did before starting the timer.
 - [x] .TOML for settings
   - [ ] Reset settings
   - [x] Create settings template
-    - [ ] Each module / command enabled
+    - [x] Each module / command enabled
 - [x] logs
   - [x] log folder
   - [x] logs get written to a file
