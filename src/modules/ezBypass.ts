@@ -20,7 +20,7 @@ export default class extends ModuleBase implements Module {
 
 	parseOutgoing = async (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client) => {
 		if (meta.name === "chat") {
-			data.message = data.message.replaceAll(/\sez(\s|$)/, " ｅｚ ");
+			data.message = data.message.replaceAll(/\sez(\s|$)/g, " ｅｚ ");
 			return { intercept: false, data: data, meta: meta }
 		}
 

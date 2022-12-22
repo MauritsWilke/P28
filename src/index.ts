@@ -23,8 +23,6 @@ proxy.on("incoming", async (data, meta, toClient, toServer) => {
 	if (shouldSend) toClient.write(meta.name, data);
 })
 
-
-
 proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 	let shouldSend = true;
 
@@ -37,8 +35,15 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 			const commandName = possibleCommand.slice(prefix.length);
 			const command = client.commands.get(commandName);
 			if (command?.settings.enabled) {
-				logger.info(`running command ${commandName}`);
-				await command.execute(args, data, meta, toClient, toServer);
+				try {
+					logger.info(`running command ${commandName}`);
+					await command.execute(args, data, meta, toClient, toServer);
+
+				} catch (e) {
+					const msg = `{"text":"Something went wrong running ${commandName}, please check the logs."}`;
+					toClient.write("chat", { message: msg });
+					logger.error(`${e}`);
+				}
 
 				shouldSend = false;
 			}
@@ -46,7 +51,7 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 	}
 
 	const response = await client.parsePacket(data, meta, toClient, toServer, "outgoing");
-	shouldSend = response.intercept;
+	if (shouldSend) shouldSend = response.intercept;
 	[data, meta] = [response.data, response.meta];
 
 	if (shouldSend) toServer.write(meta.name, data);
