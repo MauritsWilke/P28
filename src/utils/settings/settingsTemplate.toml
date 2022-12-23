@@ -5,3 +5,4 @@ port = 25565
 
 [settings]
 prefix = "/"
+locale = "en-UK"

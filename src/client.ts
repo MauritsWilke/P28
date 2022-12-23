@@ -11,7 +11,7 @@ import type { PacketMeta, ServerClient, Client } from "prismarine-proxy";
 import type { Settings } from "./interfaces/settings.js"
 import type { Command } from "./commands/CommandBase.js";
 import type { Module, ModuleReturn } from "./modules/ModuleBase.js";
-import { updateSettings } from "./utils/updateSettings.js";
+import { updateSettings } from "./utils/settings/updateSettings.js";
 import { EmptyPlayer, Player } from "./interfaces/player.js";
 
 export class P22 {

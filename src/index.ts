@@ -1,4 +1,4 @@
-import { getSettings } from "./utils/getSettings.js"
+import { getSettings } from "./utils/settings/getSettings.js"
 import { P22 } from "./client.js";
 import { Logger } from "./utils/logger.js";
 import type { Settings } from "./interfaces/settings.js";
@@ -9,7 +9,6 @@ const prefix = settings.settings.prefix;
 
 const client = new P22(settings);
 const proxy = await client.startProxy();
-
 
 proxy.on("incoming", async (data, meta, toClient, toServer) => {
 	const start = process.hrtime.bigint();
@@ -42,7 +41,8 @@ proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 					await command.execute(args, data, meta, toClient, toServer, client, client.player);
 
 				} catch (e) {
-					const msg = `{"text":"Something went wrong running ${commandName}, please check the logs."}`;
+					const insertThis = `Something went wrong running ${commandName}, please check the logs.`
+					const msg = `{"text":"${insertThis}"}`;
 					toClient.write("chat", { message: msg });
 					logger.error(`${e}`);
 				}

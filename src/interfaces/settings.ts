@@ -6,7 +6,8 @@ export interface Settings {
 	}
 
 	settings: {
-		prefix: string
+		prefix: string,
+		locale: string
 	}
 
 	modules: {

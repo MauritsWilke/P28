@@ -1,7 +1,7 @@
 import { stringify } from "@iarna/toml";
 import { writeFileSync, copyFileSync } from "fs";
-import type { Settings } from "../interfaces/settings.js";
-import { Logger } from "./logger.js";
+import type { Settings } from "../../interfaces/settings.js";
+import { Logger } from "../logger.js";
 const logger = new Logger();
 
 export function updateSettings(settings: Settings) {

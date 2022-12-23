@@ -5,6 +5,7 @@ port = 25_565
 
 [settings]
 prefix = "/"
+locale = "en-UK"
 
 [modules]
 ezBypass = true
