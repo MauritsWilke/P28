@@ -41,7 +41,6 @@ export default class extends ModuleBase implements Module {
 
 			let splitMessage = data.message.split(" ") as string[];
 			const prefix = data.message.match(regex) ? splitMessage.shift() : null;
-			console.log(prefix)
 			const suffixes = ["UwU", "OwO", "XwX", ":3", "rawr"];
 
 			splitMessage = splitMessage.map(word => word.replaceAll(/L|R/g, "W").replaceAll(/l|r/g, "w"));
