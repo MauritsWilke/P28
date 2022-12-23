@@ -25,7 +25,7 @@ export default class extends ModuleBase implements Module {
 	constructor() {
 		super({
 			name: "owoSpeak",
-			description: "M- Make youw chat wook wike this :3",
+			description: "M-Make youw chat wook wike this :3",
 			enabled: true
 		});
 	}
@@ -36,10 +36,12 @@ export default class extends ModuleBase implements Module {
 
 	parseOutgoing = async (data: any, meta: PacketMeta, toClient: ServerClient, toServer: Client, proxyClient: P22) => {
 		if (meta.name === "chat") {
-			const regex = new RegExp(`${allowedCommands.map(v => `\/${v}`).join("|")}`)
-			if (!data.message.match(regex)) return { intercept: false, data: data, meta: meta };
+			const regex = new RegExp(`${allowedCommands.map(v => `/${v}\s`).join("|")}`, "gi");
+			if (data.message[0] === "/" && !data.message.match(regex)) return { intercept: false, data: data, meta: meta };
 
 			let splitMessage = data.message.split(" ") as string[];
+			const prefix = data.message.match(regex) ? splitMessage.shift() : null;
+			console.log(prefix)
 			const suffixes = ["UwU", "OwO", "XwX", ":3", "rawr"];
 
 			splitMessage = splitMessage.map(word => word.replaceAll(/L|R/g, "W").replaceAll(/l|r/g, "w"));
@@ -57,6 +59,7 @@ export default class extends ModuleBase implements Module {
 				if (Math.random() < 0.2) splitMessage[-1] = splitMessage[-1].toLowerCase();
 			}
 
+			if (prefix) data.message.unshift(prefix);
 			data.message = splitMessage.join(" ");
 
 			return { intercept: false, data: data, meta: meta }
